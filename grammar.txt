@@ -1,0 +1,57 @@
+program ::= function_declaration*
+
+function_declaration ::= ALPHA_BIT_KEYWORD IDENTIFIER '(' parameters? ')' '{' statements '}'
+
+statements ::= statement*
+
+statement ::= ALPHA_BIT_KEYWORD_STATEMENT 
+            | IDENTIFIER_STATEMENT 
+            | CONSTANT_STATEMENT 
+            | OPERATOR_STATEMENT
+
+ALPHA_BIT_KEYWORD_STATEMENT ::= ALPHA_BIT_KEYWORD '(' (expressions)? ')' ';'
+
+IDENTIFIER_STATEMENT ::= IDENTIFIER '=' expression ';'
+
+CONSTANT_STATEMENT ::= CONSTANT '=' expression ';'
+
+OPERATOR_STATEMENT ::= expression OPERATOR expression ';'
+
+expressions ::= expression (',' expression)*
+
+parameters ::= parameter (',' parameter)* | ε
+
+parameter ::= DATA_TYPE IDENTIFIER
+
+data_type ::= 'nothing' | 'decimal' | 'word' | 'choice' | 'whole'
+
+expression ::= arithmetic_expression 
+            | logical_expression 
+            | function_call 
+            | IDENTIFIER 
+            | CONSTANT
+
+arithmetic_expression ::= expression '+' expression 
+                        | expression '-' expression 
+                        | expression '*' expression 
+                        | expression '/' expression
+
+logical_expression ::= expression '==' expression 
+                    | expression '!=' expression 
+                    | expression '<' expression 
+                    | expression '>' expression 
+                    | expression '<=' expression 
+                    | expression '>=' expression 
+                    | expression '&&' expression 
+                    | expression '||' expression 
+                    | '!' expression
+
+function_call ::= IDENTIFIER '(' (expressions)? ')'
+
+IDENTIFIER ::= [a-zA-Z_][a-zA-Z_0-9]*
+
+CONSTANT ::= -?\d+(\.\d+)? | 
+
+ALPHA_BIT_KEYWORD ::= 'greet' | 'askName' | 'convertToMiles' | 'askAge' | 'repeat' | 'until' | 'check' | 'otherwise' | 'event' | 'add' | 'subtract' | 'multiply' | 'divide' | 'findRemainder' | 'areSame' | 'areDifferent' | 'isBigger' | 'isSmaller' | 'whisperMessage' | 'shoutMessage' | 'currentDate' | 'currentTime' | 'daysUntilBirthday' | 'findMax' | 'findMin' | 'sumArray' | 'averageArray' | 'sortArray' | 'listFiles' | 'readFile' | 'writeToFile' | 'generateRandomNumber' | 'convertToBinary' | 'convertToHexadecimal' | 'calculateAreaOfCircle' | 'calculatePerimeterOfRectangle' | 'calculateAreaOfTriangle' | 'isLeapYear' | 'countVowels' | 'countWords' | 'convertCelsiusToFahrenheit' | 'convertFahrenheitToCelsius' | 'doubleNumber' | 'halfNumber' | 'isMultiple' | 'swap' | 'roundToNextWhole' | 'roundToPreviousWhole' | 'countUpTo' | 'countDownFrom'
+
+OPERATOR ::= '+' | '-' | '*' | '/' | '==' | '!=' | '<' | '>' | '<=' | '>=' | '&&' | '||' | '!'
