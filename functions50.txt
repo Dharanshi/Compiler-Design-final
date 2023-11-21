@@ -1,0 +1,361 @@
+share group AlphaBitFunctions {
+    // Function to greet the user
+    public constant nothing greet() {
+        show("Greet: Greets the user.");
+    }
+
+    // Function to ask the user for their name
+    public constant nothing askName() {
+        show("AskName: Asks the user for their name.");
+    }
+
+    // Function to convert kilometers to miles
+    public constant nothing convertToMiles(decimal km) {
+        decimal miles = km * 0.621371;
+        show("ConvertToMiles: Converts kilometers to miles. Miles: " + miles);
+    }
+
+    // Function to ask the user for their age
+    public constant nothing askAge() {
+        show("AskAge: Asks the user for their age.");
+    }
+
+    // Function to repeat a block of code a specified number of times
+    public constant nothing repeat(whole times) {
+        repeat(whole i = 0; i < times; i++) {
+            show("Iteration " + (i + 1));
+        }
+    }
+
+    // Function to repeat a block of code until a condition is true
+    public constant nothing until(choice condition) {
+        until (condition) {
+            show("Looping until condition is true");
+        }
+    }
+
+    // Function to execute a block of code if a condition is true
+    public constant nothing check(choice condition) {
+        if (condition) {
+            show("Condition is true");
+        }
+    }
+
+    // Function to execute a block of code if the previous condition was false
+    public constant nothing otherwise() {
+        show("Previous condition was false");
+    }
+
+    // Function to check a value against multiple cases
+    public constant nothing check(word value) {
+        show("Checking value: " + value);
+    }
+
+    // Function to add two numbers
+    public constant decimal add(decimal a, decimal b) {
+        giveback(a + b);
+    }
+
+    // Function to subtract two numbers
+    public constant decimal subtract(decimal a, decimal b) {
+        giveback(a - b);
+    }
+
+    // Function to multiply two numbers
+    public constant decimal multiply(decimal a, decimal b) {
+        giveback(a * b);
+    }
+
+    // Function to divide two numbers
+    public constant decimal divide(decimal a, decimal b) {
+        if (b != 0) {
+            giveback(a / b);
+        } else {
+            show("Division by zero is not allowed.");
+            giveback(0);
+        }
+    }
+    
+    // Function to find the remainder when dividing two numbers
+    public constant decimal findRemainder(decimal a, decimal b) {
+        if (b != 0) {
+            giveback(a % b);
+        } else {
+            show("Division by zero is not allowed.");
+            giveback(0);
+        }
+    }
+
+    // Function to check if two values are the same
+    public constant choice areSame(word a, word b) {
+        giveback(a.equals(b));
+    }
+
+    // Function to check if two values are different
+    public constant choice areDifferent(word a, word b) {
+        giveback(!a.equals(b));
+    }
+
+    // Function to check if one number is bigger than another
+    public constant choice isBigger(decimal a, decimal b) {
+        giveback(a > b);
+    }
+
+    // Function to check if one number is smaller than another
+    public constant choice isSmaller(decimal a, decimal b) {
+        giveback(a < b);
+    }
+
+    // Function to convert text to lowercase
+    public constant word whisperMessage(word message) {
+        giveback(message.toLowerCase());
+    }
+
+    // Function to convert text to uppercase
+    public constant word shoutMessage(word message) {
+        giveback(message.toUpperCase());
+    }
+
+    // Function to display the current date
+    public constant nothing currentDate() {
+        show("Current date: " + java.time.LocalDate.now());
+    }
+
+    // Function to display the current time
+    public constant nothing currentTime() {
+        java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat("HH:mm:ss");
+        java.util.Date date = new java.util.Date();
+        show("Current time: " + timeFormat.format(date));
+    }
+
+    // Function to calculate days until the user's next birthday
+    public constant nothing daysUntilBirthday(whole month, whole day) {
+        java.time.LocalDate today = java.time.LocalDate.now();
+        java.time.LocalDate birthday = java.time.LocalDate.of(today.getYear(), month, day);
+        if (birthday.isBefore(today) || birthday.isEqual(today)) {
+            birthday = birthday.plusYears(1);
+        }
+        java.time.Period period = java.time.Period.between(today, birthday);
+        show("Days until your next birthday: " + period.getDays());
+    }
+
+    // Function to find the maximum value in an array
+    public constant decimal findMax(decimal[] arr) {
+        if (arr.length > 0) {
+            decimal max = arr[0];
+            for (whole i = 1; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            giveback(max);
+        } else {
+            show("Array is empty.");
+            giveback(0);
+        }
+    }
+
+    // Function to find the minimum value in an array
+    public constant decimal findMin(decimal[] arr) {
+        if (arr.length > 0) {
+            decimal min = arr[0];
+            for (whole i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }
+            }
+            giveback(min);
+        } else {
+            show("Array is empty.");
+            giveback(0);
+        }
+    }
+
+    // Function to calculate the sum of values in an array
+    public constant decimal sumArray(decimal[] arr) {
+        decimal sum = 0;
+        for (decimal value : arr) {
+            sum += value;
+        }
+        giveback(sum);
+    }
+
+    // Function to calculate the average of values in an array
+    public constant decimal averageArray(decimal[] arr) {
+        if (arr.length > 0) {
+            decimal sum = 0;
+            for (decimal value : arr) {
+                sum += value;
+            }
+            giveback(sum / arr.length);
+        } else {
+            show("Array is empty.");
+            giveback(0);
+        }
+    }
+
+    // Function to sort an array in ascending order
+    public constant nothing sortArray(decimal[] arr) {
+        java.util.Arrays.sort(arr);
+        show("Sorted array: " + java.util.Arrays.toString(arr));
+    }
+
+    // Function to list all files in the current directory
+    public constant nothing listFiles() {
+        java.io.File directory = new java.io.File(".");
+        java.io.File[] files = directory.listFiles();
+        if (files != null) {
+            for (java.io.File file : files) {
+                show(file.getName());
+            }
+        } else {
+            show("No files found.");
+        }
+    }
+
+    // Function to read and display the content of a file
+    public constant nothing readFile(word filename) {
+        try {
+            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(filename));
+            word line;
+            while ((line = reader.readLine()) != null) {
+                show(line);
+            }
+            reader.close();
+        } catch (java.io.IOException e) {
+            show("Error reading the file: " + e.getMessage());
+        }
+    }
+
+    // Function to write content to a file
+    public constant nothing writeToFile(word filename, word content) {
+        try {
+            java.io.PrintWriter writer = new java.io.PrintWriter(filename, "UTF-8");
+            writer.println(content);
+            writer.close();
+            show("Content written to file: " + filename);
+        } catch (java.io.IOException e) {
+            show("Error writing to the file: " + e.getMessage());
+        }
+    }
+
+    // Function to generate a random number between 1 and n
+    public constant whole generateRandomNumber(whole n) {
+        whole randomNumber = new java.util.Random().nextInt(n) + 1;
+        giveback(randomNumber);
+    }
+
+    // Function to convert a number to binary
+    public constant word convertToBinary(whole n) {
+        word binary = java.lang.Integer.toBinaryString(n);
+        giveback(binary);
+    }
+
+    // Function to convert a number to hexadecimal
+    public constant word convertToHexadecimal(whole n) {
+        word hexadecimal = java.lang.Integer.toHexString(n);
+        giveback(hexadecimal);
+    }
+
+    // Function to calculate the area of a circle
+    public constant decimal calculateAreaOfCircle(decimal radius) {
+        decimal area = java.lang.Math.PI * radius * radius;
+        giveback(area);
+    }
+
+    // Function to calculate the perimeter of a rectangle
+    public constant decimal calculatePerimeterOfRectangle(decimal length, decimal width) {
+        decimal perimeter = 2 * (length + width);
+        giveback(perimeter);
+    }
+
+    // Function to calculate the area of a triangle
+    public constant decimal calculateAreaOfTriangle(decimal base, decimal height) {
+        decimal area = 0.5 * base * height;
+        giveback(area);
+    }
+
+    // Function to check if a year is a leap year
+    public constant choice isLeapYear(whole year) {
+        giveback(java.time.Year.of(year).isLeap());
+    }
+
+    // Function to count the number of vowels in a string
+    public constant whole countVowels(word s) {
+        whole count = 0;
+        for (whole i = 0; i < s.length(); i++) {
+            word c = s.substring(i, i + 1).toLowerCase();
+            if (c.equals("a") || c.equals("e") || c.equals("i") || c.equals("o") || c.equals("u")) {
+                count++;
+            }
+        }
+        giveback(count);
+    }
+
+    // Function to count the number of words in a string
+    public constant whole countWords(word s) {
+        word[] words = s.split("\\s+");
+        giveback(words.length);
+    }
+
+    // Function to convert Celsius to Fahrenheit
+    public constant decimal convertCelsiusToFahrenheit(decimal c) {
+        decimal f = (c * 9 / 5) + 32;
+        giveback(f);
+    }
+
+    // Function to convert Fahrenheit to Celsius
+    public constant decimal convertFahrenheitToCelsius(decimal f) {
+        decimal c = (f - 32) * 5 / 9;
+        giveback(c);
+    }
+
+    // Function to double the given number
+    public constant decimal doubleNumber(decimal n) {
+        giveback(2 * n);
+    }
+
+    // Function to half the given number
+    public constant decimal halfNumber(decimal n) {
+        giveback(n / 2);
+    }
+
+    // Function to check if a is a multiple of b
+    public constant choice isMultiple(whole a, whole b) {
+        giveback(a % b == 0);
+    }
+
+    // Function to swap the values of a and b
+    public constant nothing swap(whole a, whole b) {
+        show("Before swapping: a=" + a + ", b=" + b);
+        whole temp = a;
+        a = b;
+        b = temp;
+        show("After swapping: a=" + a + ", b=" + b);
+    }
+
+    // Function to round up the number to the nearest whole number
+    public constant whole roundToNextWhole(decimal n) {
+        giveback((whole) java.lang.Math.ceil(n));
+    }
+
+    // Function to round down the number to the nearest whole number
+    public constant whole roundToPreviousWhole(decimal n) {
+        giveback((whole) java.lang.floor(n));
+    }
+
+    // Function to print numbers from 1 to n
+    public constant nothing countUpTo(whole n) {
+        repeat(whole i = 1; i <= n; i++) {
+            show("Number: " + i);
+        }
+    }
+
+    // Function to print numbers from n down to 1
+    public constant nothing countDownFrom(whole n) {
+        repeat(whole i = n; i >= 1; i--) {
+            show("Number: " + i);
+        }
+    }
+}
+
