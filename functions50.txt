@@ -1,4 +1,4 @@
-share group AlphaBitFunctions {
+
     // Function to greet the user
     public constant nothing greet() {
         show("Greet: Greets the user.");
